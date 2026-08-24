@@ -140,6 +140,7 @@ public class JGitAnalyserServiceImpl implements JGitAnalyserService {
         try {
             git.checkout().setCreateBranch(true).setName(branch).setStartPoint(remoteBranch).call();
         } catch (GitAPIException e) {
+            logger.info("Error, Failed to branch: {} checkout ", branch);
             throw new RuntimeException(e);
         }
     }
