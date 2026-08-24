@@ -34,9 +34,11 @@ public class JGitAnalyzeServiceUtil {
             throw new IllegalArgumentException("Unable to Resolve the branch: " + branch);
         }
 
-        try (var revWalk = new RevWalk(repository)) {
-            RevCommit commit = revWalk.parseCommit(branchId);
-
+        try (RevWalk revWalk = new RevWalk(repository)) {
+           // RevCommit commit = revWalk.parseCommit(branchId);
+            revWalk.markStart(
+                    revWalk.parseCommit(branchId)
+            );
             for (RevCommit curCommit : revWalk) {
                 commitData.add(CommitData.builder().commitHash(curCommit.getName()).
                         shortHash(curCommit.getName().substring(0, 7))
