@@ -1,8 +1,7 @@
 package com.mini.git.analyser.JGitAnalyser.controller;
 
-import com.mini.git.analyser.JGitAnalyser.controller.JGitAnalysisController;
-import com.mini.git.analyser.JGitAnalyser.dto.JGitRequest;
-import com.mini.git.analyser.JGitAnalyser.dto.JGitResponse;
+import com.mini.git.analyser.JGitAnalyser.dto.request.JGitRequest;
+import com.mini.git.analyser.JGitAnalyser.dto.response.JGitResponse;
 import com.mini.git.analyser.JGitAnalyser.service.JGitAnalyserService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -28,9 +27,9 @@ class JGitAnalysisControllerTest {
             throw new RuntimeException(e);
         }
 
-        JGitRequest req = new JGitRequest("https://x/y.git", "main");
-        JGitResponse resp = new JGitResponse("id","owner","repo","main",0,null,List.of());
-        when(svc.analyze(req.gitUrl(), req.branch())).thenReturn(resp);
+        JGitRequest req = new JGitRequest("https://x/y.git", "main", true);
+        JGitResponse resp = new JGitResponse("repo","main",0,0,0,0,List.of());
+        when(svc.analyze(req.gitUrl(), req.branch(), true)).thenReturn(resp);
 
         ResponseEntity<JGitResponse> r = ctrl.analyseGitRepo(req);
         assertEquals(200, r.getStatusCodeValue());

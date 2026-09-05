@@ -1,5 +1,7 @@
 package com.mini.git.analyser.JGitAnalyser.mongodb;
 
+import com.mini.git.analyser.JGitAnalyser.model.CommitData;
+import com.mini.git.analyser.JGitAnalyser.mongodb.document.RepoDocument;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
@@ -27,11 +29,9 @@ class MongoModelTests {
                 .repositoryName("r")
                 .branch("b")
                 .totalCommits(1)
-                .latestCommit(cd)
-                .recentCommits(List.of(cd))
                 .build();
 
         assertEquals("u", rd.getGitUrl());
-        assertEquals(cd, rd.getLatestCommit());
+
     }
 }

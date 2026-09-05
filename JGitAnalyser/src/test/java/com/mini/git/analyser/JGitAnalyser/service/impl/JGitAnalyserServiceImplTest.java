@@ -1,10 +1,8 @@
 package com.mini.git.analyser.JGitAnalyser.service.impl;
 
-import com.mini.git.analyser.JGitAnalyser.mongodb.CommitData;
+import com.mini.git.analyser.JGitAnalyser.model.CommitData;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.ListBranchCommand;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.Constants;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 

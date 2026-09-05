@@ -1,10 +1,7 @@
-package com.mini.git.analyser.JGitAnalyser.mongodb;
+package com.mini.git.analyser.JGitAnalyser.mongodb.document;
 
-import com.mini.git.analyser.JGitAnalyser.dto.JGitCommitResponse;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.mini.git.analyser.JGitAnalyser.model.CommitData;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -15,17 +12,20 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Document(collection = "git_analyser")
+@Getter
+@Setter
+@Document(collection = "git_analyses_run")
 public class RepoDocument {
     @Id
-    private String id;
+    private String analysisId;
     private String gitUrl;
     private String owner;
     private String repositoryName;
     private String branch;
-    private int totalCommits;
-    private CommitData latestCommit;
     private Instant analysedAt;
-    private List<CommitData> recentCommits;
+    private int totalCommits;
+    private int totalFilesChanged;
+    private int totalAdditions;
+    private int totalDeletions;
 
 }

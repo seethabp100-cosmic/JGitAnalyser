@@ -61,6 +61,11 @@
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.google.genai</groupId>
+            <artifactId>google-genai</artifactId>
+            <version>1.66.0</version>
+        </dependency>
     </dependencies>
 
     <build>

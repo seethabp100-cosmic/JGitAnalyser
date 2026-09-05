@@ -18,20 +18,20 @@ class JGitAnalyzeServiceUtilTest {
     @Test
     void extractRepoOwnerName_removesGitSuffix() {
         String url = "https://github.com/user/repo.git";
-        String owner = util.extractRepoOwnerName(url);
+        String owner = util.extractRepoName(url);
         assertEquals("/repo", owner);
 
         String url2 = "https://github.com/user/repo";
-        assertEquals("/repo", util.extractRepoOwnerName(url2));
+        assertEquals("/repo", util.extractRepoName(url2));
     }
 
     @Test
     void extractRepoName_returnsParentSegment() {
         String url = "https://github.com/user/repo.git";
-        assertEquals("user", util.extractRepoName(url));
+        assertEquals("user", util.extractOwnerName(url));
 
         String url2 = "https://example.com/a/b/c.git";
-        assertEquals("b", util.extractRepoName(url2));
+        assertEquals("b", util.extractOwnerName(url2));
     }
 
     @Test

@@ -1,7 +1,7 @@
 package com.mini.git.analyser.JGitAnalyser.controller;
 
-import com.mini.git.analyser.JGitAnalyser.dto.JGitRequest;
-import com.mini.git.analyser.JGitAnalyser.dto.JGitResponse;
+import com.mini.git.analyser.JGitAnalyser.dto.request.JGitRequest;
+import com.mini.git.analyser.JGitAnalyser.dto.response.JGitResponse;
 import com.mini.git.analyser.JGitAnalyser.service.JGitAnalyserService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -36,7 +36,7 @@ public class JGitAnalysisController {
         logger.info("Controller: Start, Analysis of Git Repo");
         JGitResponse response = null;
         try {
-            response = jgitAnalyserService.analyze(request.gitUrl(), request.branch());
+            response = jgitAnalyserService.analyze(request.gitUrl(), request.branch(), request.includeAIAnalysis());
             logger.info("Controller: response = {}", response);
         } catch (Exception e) {
             logger.error("Error, unable to analyse the gitURL = {}, branch = {}", request.gitUrl(), request.branch());
