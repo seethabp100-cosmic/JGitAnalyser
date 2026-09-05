@@ -1,4 +1,4 @@
-package com.mini.git.analyser.JGitAnalyser.dto;
+package com.mini.git.analyser.JGitAnalyser.dto.response;
 
 import java.time.Instant;
 

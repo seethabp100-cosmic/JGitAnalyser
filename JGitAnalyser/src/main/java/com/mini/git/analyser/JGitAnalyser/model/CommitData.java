@@ -1,4 +1,4 @@
-package com.mini.git.analyser.JGitAnalyser.mongodb;
+package com.mini.git.analyser.JGitAnalyser.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
