@@ -23,6 +23,7 @@ public class MongoDocumentMapper {
         repoDocument.setAnalysisId(analysisId);
         repoDocument.setGitUrl(repoUrl);
         repoDocument.setBranch(branch);
+        repoDocument.setOwner(gitAnalysisResponse.getAuthor());
         repoDocument.setAnalysedAt(Instant.now());
         repoDocument.setTotalCommits(gitAnalysisResponse.getCommits().size());
 

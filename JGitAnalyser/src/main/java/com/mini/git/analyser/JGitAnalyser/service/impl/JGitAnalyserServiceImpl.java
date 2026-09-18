@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -63,21 +64,27 @@ public class JGitAnalyserServiceImpl implements JGitAnalyserService {
             //clone the repo
             tempDirectory = Files.createTempDirectory("git-analyser-");
             logger.info("[Service] temporary Directory: {}", tempDirectory);
-
+            logger.info("Cloning Repository");
             RepositoryContext context = gitAnalyzeUtil.cloneRepository(gitUrl, branch, tempDirectory);
+            logger.info("Repository Cloned");
             logger.info("[Service] Repository Context:: {}",context);
+
+            logger.info("Analysing Commits");
             List<CommitResponse> responseList = commitAnalysisService.analyseCommits(context.repository(), branch, 20);
+            logger.info("Commits Analysed");
             logger.info("[Service] Analysed Commit List:: {}", responseList);
             CommitResponse commitResponse = responseList.isEmpty()? null : responseList.get(0);
 
+            logger.info("Building Response");
             JGitResponse response =  buildResponse(gitUrl, branch, context, responseList, commitResponse);
+            logger.info("Response Formed");
             logger.info("[Service] Analyzed Full Git Response:: {}", response);
             if(includeAIAnalysis){
                 aiAnalysisService.enrichAnalysisWithAI(response);
             }
 
+            logger.info("Persisting");
             persistenceService.saveAnalysis(response, gitUrl, branch);
-
             return response;
             /*try (Git git = Git.cloneRepository()
                     .setURI(gitUrl)
@@ -167,6 +174,8 @@ public class JGitAnalyserServiceImpl implements JGitAnalyserService {
                 .filter(file -> file.getChangeType().equals("MODIFY"))
                 .mapToInt(file -> 1)
                 .sum();
+        String author = gitAnalyzeUtil.extractOwnerName(gitUrl);
+
         AnalysisSummary summary =
                 new AnalysisSummary(
                         filesChanged,
@@ -178,13 +187,17 @@ public class JGitAnalyserServiceImpl implements JGitAnalyserService {
                         totalDeletions
                 );
 
+        Instant analysedAt = Instant.now();
+
         return new JGitResponse(
                 context.gitUrl(),
                 branch,
+                author,
                 commits.size(),
                 filesChanged,
                 totalAdditions,
                 totalDeletions,
+                analysedAt,
                 commits
         );
     }
